@@ -135,16 +135,18 @@ fun GalleryScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Box(modifier = Modifier.width(160.dp), contentAlignment = Alignment.CenterEnd) {
+                // Increased width from 160.dp to 220.dp to fit "Winterhold" on one line
+                Box(modifier = Modifier.width(220.dp), contentAlignment = Alignment.CenterEnd) {
                     Text(
                         text = selectedCity.name,
                         fontSize = 34.sp,
                         color = Color.Black,
                         fontFamily = SkyrimFont,
-                        fontWeight = FontWeight.Normal
+                        fontWeight = FontWeight.Normal,
+                        maxLines = 1
                     )
                 }
-                // Left aligned icons in the same line across all cities
+                // Increased width from 80.dp to 140.dp to keep the icon in the same relative screen position
                 Box(modifier = Modifier.width(80.dp), contentAlignment = Alignment.CenterStart) {
                     Image(
                         painter = painterResource(id = selectedCity.iconRes),

@@ -36,7 +36,6 @@ fun SettingsScreen(navController: NavController) {
     
     var soundEnabled by remember { mutableStateOf(true) }
     var musicEnabled by remember { mutableStateOf(true) }
-    var notificationsEnabled by remember { mutableStateOf(true) }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         Image(
@@ -81,7 +80,7 @@ fun SettingsScreen(navController: NavController) {
                     style = TextStyle(
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFF5E6B8),
+                        color = Color.White, // Removed yellow (F5E6B8 -> White)
                         fontFamily = SkyrimFont,
                         shadow = Shadow(
                             color = Color.Black.copy(alpha = 0.85f),
@@ -126,15 +125,6 @@ fun SettingsScreen(navController: NavController) {
                     )
                 }
 
-                SettingsSection(title = "Gameplay") {
-                    ToggleRow(
-                        title = "Notifications",
-                        description = "Enable game notifications",
-                        checked = notificationsEnabled,
-                        onCheckedChange = { notificationsEnabled = it }
-                    )
-                }
-
                 SettingsSection(title = "Account") {
                     Button(
                         onClick = {
@@ -147,7 +137,7 @@ fun SettingsScreen(navController: NavController) {
                             .fillMaxWidth()
                             .height(48.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF3E2723)
+                            containerColor = Color(0xFF2C2C2C) // Blends better than 3E2723
                         ),
                         shape = RoundedCornerShape(8.dp)
                     ) {
@@ -224,10 +214,10 @@ private fun ToggleRow(
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = Color(0xFFD4AF37),
-                checkedTrackColor = Color(0xFF6D5A40),
-                uncheckedThumbColor = Color(0xFF9E9E9E),
-                uncheckedTrackColor = Color(0xFF5D4037).copy(alpha = 0.35f)
+                checkedThumbColor = Color.White, // Changed from Yellow (D4AF37)
+                checkedTrackColor = Color.DarkGray, // Blends well
+                uncheckedThumbColor = Color.Gray,
+                uncheckedTrackColor = Color.Black.copy(alpha = 0.35f)
             )
         )
     }

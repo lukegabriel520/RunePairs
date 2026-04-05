@@ -48,30 +48,30 @@ fun DifficultySelectScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .screenContentPadding(extraTop = 44.dp, extraHorizontal = 12.dp, extraBottom = 16.dp),
+                .screenContentPadding(extraTop = 20.dp, extraHorizontal = 12.dp, extraBottom = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Who seeks challenge remains outside the scroll
             Text(
                 text = "Who seeks challenge?",
                 style = TextStyle(
-                    fontFamily = SkyrimFont, // Updated to use SkyrimFont
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 28.sp,
+                    fontFamily = SkyrimFont,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 32.sp,
                     color = Color.White,
                     shadow = Shadow(
-                        color = Color.Black.copy(alpha = 0.9f),
+                        color = Color.Black,
                         blurRadius = 16f
                     )
                 ),
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 20.dp)
+                modifier = Modifier.padding(bottom = 12.dp)
             )
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.96f)
-                    .weight(1f)
-                    .padding(bottom = 6.dp),
+                    .weight(1f),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -81,17 +81,29 @@ fun DifficultySelectScreen(navController: NavController) {
                     contentScale = ContentScale.FillBounds
                 )
 
+                // All actual options are contained within the scroll
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth(0.9f)
+                        .fillMaxWidth(0.85f)
                         .fillMaxHeight()
                         .verticalScroll(rememberScrollState())
-                        .padding(start = 10.dp, end = 10.dp, top = 40.dp, bottom = 48.dp),
+                        .padding(top = 48.dp, bottom = 48.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.Center
                 ) {
+                    Text(
+                        text = "CHOOSE DIFFICULTY",
+                        style = TextStyle(
+                            fontSize = 24.sp,
+                            fontFamily = SkyrimFont,
+                            fontWeight = FontWeight.Bold,
+                            color = scrollTextColor,
+                            textAlign = TextAlign.Center,
+                            letterSpacing = 2.sp
+                        )
+                    )
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     GameDifficulty.entries.forEach { diff ->
                         val c = diff.config
@@ -102,6 +114,7 @@ fun DifficultySelectScreen(navController: NavController) {
                                 navController.navigate(Screen.Game.createRoute(diff.name))
                             }
                         )
+                        Spacer(modifier = Modifier.height(12.dp))
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -110,17 +123,17 @@ fun DifficultySelectScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(
-                                Color(0xFF3E2723).copy(alpha = 0.1f),
+                                Color(0xFF3E2723).copy(alpha = 0.15f),
                                 RoundedCornerShape(4.dp)
                             )
                             .clickable { navController.navigateUp() }
-                            .padding(vertical = 14.dp),
+                            .padding(vertical = 12.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = "BACK",
                             fontSize = 18.sp,
-                            fontFamily = SkyrimFont, // Updated to use SkyrimFont
+                            fontFamily = SkyrimFont,
                             fontWeight = FontWeight.Bold,
                             color = scrollTextColor,
                             letterSpacing = 1.sp
@@ -143,13 +156,13 @@ private fun DifficultyOption(
             .fillMaxWidth()
             .background(Color(0xFF3E2723).copy(alpha = 0.08f), RoundedCornerShape(4.dp))
             .clickable(onClick = onClick)
-            .padding(vertical = 16.dp, horizontal = 18.dp),
+            .padding(vertical = 14.dp, horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = title.uppercase(),
-            fontSize = 22.sp,
-            fontFamily = SkyrimFont, // Updated to use SkyrimFont
+            fontSize = 20.sp,
+            fontFamily = SkyrimFont,
             fontWeight = FontWeight.Bold,
             color = Color(0xFF2C1E14),
             letterSpacing = 1.sp
@@ -157,14 +170,14 @@ private fun DifficultyOption(
         Text(
             text = subtitle,
             style = TextStyle(
-                fontSize = 14.sp,
-                lineHeight = 18.sp,
-                fontFamily = FontFamily.SansSerif, // Updated to use SansSerif for description
+                fontSize = 13.sp,
+                lineHeight = 16.sp,
+                fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Medium,
                 color = Color(0xFF5D4037),
                 textAlign = TextAlign.Center
             ),
-            modifier = Modifier.padding(top = 4.dp)
+            modifier = Modifier.padding(top = 2.dp)
         )
     }
 }

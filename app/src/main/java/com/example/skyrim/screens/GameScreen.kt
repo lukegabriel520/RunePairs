@@ -190,7 +190,7 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
                     Column(
                         modifier = Modifier
                             .padding(horizontal = 24.dp)
-                            .fillMaxHeight(),
+                            .fillMaxHeight(0.85f),
                         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -208,34 +208,34 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
                         }
                     }
                 } else if (difficulty == GameDifficulty.HELL && cards.size == 18) {
-                    // Custom Hell Layout: 4-4-4-4-2
+                    // Custom Hell Layout: 4-4-4-4-2, centered and expanded to match Adept's container feel
                     Column(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .fillMaxHeight(),
-                        verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+                            .padding(horizontal = 12.dp)
+                            .fillMaxHeight(0.85f), // Matching Adept container height feel
+                        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         for (row in 0..3) {
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
+                                horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
                             ) {
                                 for (col in 0..3) {
                                     val index = row * 4 + col
                                     Box(modifier = Modifier.weight(1f)) {
-                                        MemoryCardItem(cards[index], 0.95f) { onCardClick(index) }
+                                        MemoryCardItem(cards[index], 0.85f) { onCardClick(index) }
                                     }
                                 }
                             }
                         }
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
+                            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
                         ) {
                             Spacer(modifier = Modifier.weight(1f))
-                            Box(modifier = Modifier.weight(1f)) { MemoryCardItem(cards[16], 0.95f) { onCardClick(16) } }
-                            Box(modifier = Modifier.weight(1f)) { MemoryCardItem(cards[17], 0.95f) { onCardClick(17) } }
+                            Box(modifier = Modifier.weight(1f)) { MemoryCardItem(cards[16], 0.85f) { onCardClick(16) } }
+                            Box(modifier = Modifier.weight(1f)) { MemoryCardItem(cards[17], 0.85f) { onCardClick(17) } }
                             Spacer(modifier = Modifier.weight(1f))
                         }
                     }
@@ -250,7 +250,7 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
                         columns = GridCells.Fixed(columns),
                         modifier = Modifier
                             .padding(horizontal = gridPadding)
-                            .fillMaxHeight(),
+                            .fillMaxHeight(0.85f),
                         horizontalArrangement = Arrangement.spacedBy(horizontalSpacing),
                         verticalArrangement = Arrangement.spacedBy(verticalSpacing),
                         contentPadding = PaddingValues(bottom = 8.dp, top = 8.dp)
@@ -262,14 +262,14 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
                 }
             }
 
-            // Flips counter aligned in middle below cards
+            // Flips counter
             Text(
                 text = "Flips: $flips",
                 color = Color(0xFFD4AF37),
                 fontSize = 18.sp,
                 fontFamily = SkyrimFont,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 4.dp)
             )
 
             // Footer - Pause Button
