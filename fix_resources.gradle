@@ -1,0 +1,27 @@
+
+allprojects {
+    tasks.register("fixResources") {
+        doLast {
+            def resDir = new File(rootDir, "app/src/main/res/drawable")
+            println "Checking directory: ${resDir.absolutePath}"
+            if (resDir.exists()) {
+                (1..9).each { i ->
+                    def oldFile = new File(resDir, "${i}.png")
+                    def newFile = new File(resDir, "card_${i}.png")
+                    if (oldFile.exists()) {
+                        println "Renaming ${oldFile.name} to ${newFile.name}"
+                        if (oldFile.renameTo(newFile)) {
+                            println "Successfully renamed ${oldFile.name}"
+                        } else {
+                            println "Failed to rename ${oldFile.name}"
+                        }
+                    } else {
+                        println "File ${oldFile.name} not found"
+                    }
+                }
+            } else {
+                println "Directory not found: ${resDir.absolutePath}"
+            }
+        }
+    }
+}

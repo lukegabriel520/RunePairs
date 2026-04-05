@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123328320302",
+    "project_id": "runepairs",
+    "storage_bucket": "runepairs.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123328320302:android:f3397a818dd967bcd4a0bf",
+        "android_client_info": {
+          "package_name": "com.example.skyrim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHAAT6E1SrLZPUBV1DHasYhiWAWOdcPZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
