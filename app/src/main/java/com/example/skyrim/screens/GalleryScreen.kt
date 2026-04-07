@@ -110,11 +110,11 @@ fun GalleryScreen(navController: NavController) {
                         .background(Color.LightGray.copy(alpha = 0.5f), CircleShape)
                         .border(1.dp, Color.Gray, CircleShape)
                 ) {
-                    // Original home.png with no filters
+                    // Using card_back.png as the Home button icon
                     Image(
-                        painter = painterResource(id = R.drawable.home),
+                        painter = painterResource(id = R.drawable.card_back),
                         contentDescription = "Home",
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(28.dp)
                     )
                 }
 
