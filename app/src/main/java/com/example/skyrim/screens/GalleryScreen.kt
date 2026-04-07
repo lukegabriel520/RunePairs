@@ -112,7 +112,7 @@ fun GalleryScreen(navController: NavController) {
                 ) {
                     // Using card_back.png as the Home button icon
                     Image(
-                        painter = painterResource(id = R.drawable.card_back),
+                        painter = painterResource(id = R.drawable.home),
                         contentDescription = "Home",
                         modifier = Modifier.size(28.dp)
                     )
@@ -120,10 +120,10 @@ fun GalleryScreen(navController: NavController) {
 
                 Text(
                     text = "Catalog",
-                    fontSize = 48.sp,
+                    fontSize = 40.sp,
                     color = Color.Black,
                     fontFamily = SkyrimFont,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Normal
                 )
             }
 
