@@ -34,8 +34,8 @@ fun SettingsScreen(navController: NavController) {
     val context = LocalContext.current
     val dataManager = remember { LocalDataManager(context) }
     
-    var soundEnabled by remember { mutableStateOf(true) }
-    var musicEnabled by remember { mutableStateOf(true) }
+    var soundEnabled by remember { mutableStateOf(dataManager.isSoundEnabled()) }
+    var musicEnabled by remember { mutableStateOf(dataManager.isMusicEnabled()) }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         Image(
@@ -80,7 +80,7 @@ fun SettingsScreen(navController: NavController) {
                     style = TextStyle(
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.White, // Removed yellow (F5E6B8 -> White)
+                        color = Color.White,
                         fontFamily = SkyrimFont,
                         shadow = Shadow(
                             color = Color.Black.copy(alpha = 0.85f),
@@ -115,13 +115,19 @@ fun SettingsScreen(navController: NavController) {
                         title = "Sound Effects",
                         description = "Enable game sound effects",
                         checked = soundEnabled,
-                        onCheckedChange = { soundEnabled = it }
+                        onCheckedChange = { 
+                            soundEnabled = it
+                            dataManager.setSoundEnabled(it)
+                        }
                     )
                     ToggleRow(
                         title = "Background Music",
                         description = "Enable background music",
                         checked = musicEnabled,
-                        onCheckedChange = { musicEnabled = it }
+                        onCheckedChange = { 
+                            musicEnabled = it
+                            dataManager.setMusicEnabled(it)
+                        }
                     )
                 }
 
@@ -137,7 +143,7 @@ fun SettingsScreen(navController: NavController) {
                             .fillMaxWidth()
                             .height(48.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF2C2C2C) // Blends better than 3E2723
+                            containerColor = Color(0xFF2C2C2C)
                         ),
                         shape = RoundedCornerShape(8.dp)
                     ) {
@@ -214,8 +220,8 @@ private fun ToggleRow(
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.White, // Changed from Yellow (D4AF37)
-                checkedTrackColor = Color.DarkGray, // Blends well
+                checkedThumbColor = Color.White,
+                checkedTrackColor = Color.DarkGray,
                 uncheckedThumbColor = Color.Gray,
                 uncheckedTrackColor = Color.Black.copy(alpha = 0.35f)
             )

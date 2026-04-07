@@ -120,6 +120,19 @@ class LocalDataManager(context: Context) {
         return list
     }
 
+    // Settings
+    fun setSoundEnabled(enabled: Boolean) {
+        prefs.edit { putBoolean("sound_enabled", enabled) }
+    }
+
+    fun isSoundEnabled(): Boolean = prefs.getBoolean("sound_enabled", true)
+
+    fun setMusicEnabled(enabled: Boolean) {
+        prefs.edit { putBoolean("music_enabled", enabled) }
+    }
+
+    fun isMusicEnabled(): Boolean = prefs.getBoolean("music_enabled", true)
+
     fun wipeData() {
         prefs.edit { clear() }
     }

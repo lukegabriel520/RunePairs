@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.skyrim.R
+import com.example.skyrim.auth.LocalDataManager
 import com.example.skyrim.navigation.Screen
 import com.example.skyrim.ui.LoopingRawVideo
 import com.example.skyrim.ui.screenContentPadding
@@ -39,6 +40,7 @@ import com.google.android.exoplayer2.Player
 @Composable
 fun MenuScreen(navController: NavController) {
     val context = LocalContext.current
+    val dataManager = remember { LocalDataManager(context) }
 
     val musicPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
@@ -46,7 +48,7 @@ fun MenuScreen(navController: NavController) {
             setMediaItem(mediaItem)
             repeatMode = Player.REPEAT_MODE_ONE
             prepare()
-            playWhenReady = true
+            playWhenReady = dataManager.isMusicEnabled()
         }
     }
 
@@ -79,7 +81,7 @@ fun MenuScreen(navController: NavController) {
             // Elevated Title Section
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top = 2.dp) // Pushed up further
+                modifier = Modifier.padding(top = 2.dp)
             ) {
                 Text(
                     text = "RunePairs",
@@ -99,7 +101,7 @@ fun MenuScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Lower Menu Section (further down)
+            // Lower Menu Section
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -129,11 +131,11 @@ fun MenuScreen(navController: NavController) {
 fun MenuButton(text: String, onClick: () -> Unit) {
     Box(
         modifier = Modifier
-            .fillMaxWidth(0.65f) // More compact
-            .height(42.dp)      // More compact
+            .fillMaxWidth(0.65f)
+            .height(42.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(2.dp))
             .background(
-                color = Color.Black.copy(alpha = 0.55f), // Translucent black
+                color = Color.Black.copy(alpha = 0.55f),
                 shape = RoundedCornerShape(2.dp)
             )
             .border(0.5.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(2.dp))
@@ -141,9 +143,7 @@ fun MenuButton(text: String, onClick: () -> Unit) {
             .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
-        // Realistic crack and weathered effect using Canvas
         Canvas(modifier = Modifier.fillMaxSize()) {
-            // Draw subtle crack lines
             val crackColor = Color.White.copy(alpha = 0.1f)
             val crackPath = Path().apply {
                 moveTo(0f, size.height * 0.2f)
@@ -156,7 +156,6 @@ fun MenuButton(text: String, onClick: () -> Unit) {
             }
             drawPath(crackPath, crackColor, style = Stroke(width = 1f))
 
-            // Subtle "moss/dirt" spots
             drawCircle(
                 color = Color(0xFF2E3B23).copy(alpha = 0.15f),
                 radius = 12f,
@@ -172,9 +171,9 @@ fun MenuButton(text: String, onClick: () -> Unit) {
         Text(
             text = text.uppercase(),
             style = TextStyle(
-                fontSize = 15.sp, // Minimized font size
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White, // White font
+                color = Color.White,
                 fontFamily = SkyrimFont,
                 letterSpacing = 2.sp,
                 shadow = Shadow(Color.Black, blurRadius = 4f)

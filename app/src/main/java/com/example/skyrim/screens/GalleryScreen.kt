@@ -120,10 +120,10 @@ fun GalleryScreen(navController: NavController) {
 
                 Text(
                     text = "Catalog",
-                    fontSize = 32.sp,
+                    fontSize = 48.sp,
                     color = Color.Black,
                     fontFamily = SkyrimFont,
-                    fontWeight = FontWeight.Normal
+                    fontWeight = FontWeight.Bold
                 )
             }
 

@@ -65,7 +65,7 @@ fun DifficultySelectScreen(navController: NavController) {
                     )
                 ),
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 12.dp)
+                modifier = Modifier.padding(top = 10.dp, bottom = 12.dp) // Added 10dp top padding as requested
             )
 
             Box(

@@ -12,8 +12,8 @@ enum class GameDifficulty {
     val config: DifficultyConfig
         get() = when (this) {
             CASUAL -> DifficultyConfig(pairCount = 4, timeLimitSeconds = 120, gridColumns = 3)
-            ADEPT -> DifficultyConfig(pairCount = 6, timeLimitSeconds = 75, gridColumns = 3)
-            HELL -> DifficultyConfig(pairCount = 9, timeLimitSeconds = 45, gridColumns = 3)
+            ADEPT -> DifficultyConfig(pairCount = 6, timeLimitSeconds = 90, gridColumns = 3)
+            HELL -> DifficultyConfig(pairCount = 9, timeLimitSeconds = 60, gridColumns = 3)
         }
 
     val displayName: String

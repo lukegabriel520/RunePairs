@@ -4,9 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -76,8 +74,8 @@ fun GameOverScreen(
         Box(
             modifier = Modifier
                 .align(Alignment.Center)
-                .fillMaxWidth(0.92f)
-                .fillMaxHeight(0.72f),
+                .fillMaxWidth(0.88f) // Slightly more narrow to keep content away from edges
+                .fillMaxHeight(0.68f), // Slightly shorter for compactness
             contentAlignment = Alignment.Center
         ) {
             Image(
@@ -89,14 +87,14 @@ fun GameOverScreen(
 
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.85f)
-                    .padding(horizontal = 20.dp, vertical = 32.dp),
+                    .fillMaxWidth(0.82f)
+                    .padding(horizontal = 16.dp, vertical = 24.dp), // Reduced padding
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = flavorTitle,
-                    fontSize = 36.sp,
+                    fontSize = 32.sp, // Reduced font size
                     fontWeight = FontWeight.ExtraBold,
                     color = scrollTextColor,
                     fontFamily = FontFamily.Serif,
@@ -106,19 +104,19 @@ fun GameOverScreen(
 
                 Text(
                     text = flavorSub,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp, // Reduced font size
                     fontWeight = FontWeight.Bold,
                     color = scrollDetailColor,
                     fontFamily = FontFamily.Serif,
                     letterSpacing = 1.5.sp,
-                    modifier = Modifier.padding(top = 4.dp)
+                    modifier = Modifier.padding(top = 2.dp)
                 )
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(24.dp)) // Reduced spacer
 
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                    verticalArrangement = Arrangement.spacedBy(10.dp) // Tighter spacing
                 ) {
                     GameOverStatRow("DIFFICULTY", difficultyLabel.uppercase(), scrollDetailColor, scrollTextColor)
                     GameOverStatRow("FINAL SCORE", score.toString(), scrollDetailColor, scrollTextColor)
@@ -131,11 +129,11 @@ fun GameOverScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(28.dp)) // Reduced spacer
 
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                    verticalArrangement = Arrangement.spacedBy(10.dp) // Tighter spacing
                 ) {
                     Button(
                         onClick = {
@@ -145,7 +143,7 @@ fun GameOverScreen(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(52.dp),
+                            .height(46.dp), // More compact buttons
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3E2723)),
                         shape = RoundedCornerShape(4.dp)
                     ) {
@@ -155,7 +153,7 @@ fun GameOverScreen(
                             fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Serif,
                             letterSpacing = 1.sp,
-                            fontSize = 15.sp
+                            fontSize = 14.sp
                         )
                     }
 
@@ -165,9 +163,9 @@ fun GameOverScreen(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(52.dp),
+                            .height(46.dp), // More compact buttons
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF3E2723)),
-                        border = BorderStroke(1.5.dp, Color(0xFF3E2723)),
+                        border = BorderStroke(1.dp, Color(0xFF3E2723)),
                         shape = RoundedCornerShape(4.dp)
                     ) {
                         Text(
@@ -175,7 +173,7 @@ fun GameOverScreen(
                             fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Serif,
                             letterSpacing = 1.sp,
-                            fontSize = 15.sp
+                            fontSize = 14.sp
                         )
                     }
                 }
@@ -198,24 +196,24 @@ private fun GameOverStatRow(
     ) {
         Text(
             text = label,
-            fontSize = 13.sp,
+            fontSize = 12.sp,
             color = labelColor,
             fontFamily = FontFamily.Serif,
             fontWeight = FontWeight.Bold,
-            letterSpacing = 1.sp
+            letterSpacing = 0.5.sp
         )
 
         Box(
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 8.dp, end = 8.dp, bottom = 4.dp)
+                .padding(start = 6.dp, end = 6.dp, bottom = 4.dp)
                 .height(1.dp)
-                .background(labelColor.copy(alpha = 0.3f))
+                .background(labelColor.copy(alpha = 0.2f))
         )
 
         Text(
             text = value,
-            fontSize = 17.sp,
+            fontSize = 15.sp,
             color = valueColor,
             fontFamily = FontFamily.Serif,
             fontWeight = FontWeight.ExtraBold

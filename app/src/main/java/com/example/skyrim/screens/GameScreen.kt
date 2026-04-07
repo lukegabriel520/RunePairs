@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.skyrim.R
+import com.example.skyrim.auth.LocalDataManager
 import com.example.skyrim.game.GameDifficulty
 import com.example.skyrim.navigation.Screen
 import com.example.skyrim.ui.theme.SkyrimFont
@@ -46,6 +47,7 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
     val context = LocalContext.current
     val config = difficulty.config
     val scope = rememberCoroutineScope()
+    val dataManager = remember { LocalDataManager(context) }
     
     // Audio Player for Flip Sound
     val flipSoundPlayer = remember {
@@ -63,7 +65,7 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
             setMediaItem(mediaItem)
             repeatMode = Player.REPEAT_MODE_ONE
             prepare()
-            playWhenReady = true
+            playWhenReady = dataManager.isMusicEnabled()
         }
     }
 
@@ -100,16 +102,18 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
     val onCardClick: (Int) -> Unit = { index ->
         val card = cards[index]
         if (flippedIndices.size < 2 && !card.isFlipped && !card.isMatched) {
-            flipSoundPlayer.seekTo(0)
-            flipSoundPlayer.playWhenReady = true
+            if (dataManager.isSoundEnabled()) {
+                flipSoundPlayer.seekTo(0)
+                flipSoundPlayer.playWhenReady = true
+            }
             
-            flips++
             val newCards = cards.toMutableList()
             newCards[index] = card.copy(isFlipped = true)
             cards = newCards
             flippedIndices = flippedIndices + index
 
             if (flippedIndices.size == 2) {
+                flips++ // Increment based on pairs flipped
                 scope.launch {
                     delay(800L)
                     val firstIndex = flippedIndices[0]
@@ -208,11 +212,10 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
                         }
                     }
                 } else if (difficulty == GameDifficulty.HELL && cards.size == 18) {
-                    // Custom Hell Layout: 4-4-4-4-2, centered and expanded to match Adept's container feel
                     Column(
                         modifier = Modifier
                             .padding(horizontal = 12.dp)
-                            .fillMaxHeight(0.85f), // Matching Adept container height feel
+                            .fillMaxHeight(0.9f),
                         verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -250,7 +253,7 @@ fun GameScreen(navController: NavController, difficulty: GameDifficulty) {
                         columns = GridCells.Fixed(columns),
                         modifier = Modifier
                             .padding(horizontal = gridPadding)
-                            .fillMaxHeight(0.85f),
+                            .fillMaxHeight(if (difficulty == GameDifficulty.ADEPT) 0.95f else 0.85f),
                         horizontalArrangement = Arrangement.spacedBy(horizontalSpacing),
                         verticalArrangement = Arrangement.spacedBy(verticalSpacing),
                         contentPadding = PaddingValues(bottom = 8.dp, top = 8.dp)
